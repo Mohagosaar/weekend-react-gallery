@@ -1,13 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
-// PUT /gallery/like/:id
-router.put('/like/:id', (req, res) => {
+const pool = require("../modules/pool.js");
+// GET /gallery
+router.get("/", (request, response) => {
+  let queryTex = `SELECT * FROM gallery ORDER BY id;`;
+  pool
+    .query(queryTex)
+    .then((result) => {
+      response.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("error in query", error);
+      response.sendStatus(500);
+    });
   // code here
 });
 
-// GET /gallery
-router.get('/', (req, res) => {
+// PUT /gallery/like/:id
+router.put("/like/:id", (req, res) => {
   // code here
 });
 
