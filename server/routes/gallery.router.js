@@ -17,8 +17,21 @@ router.get("/", (request, response) => {
 });
 
 // PUT /gallery/like/:id
-router.put("/like/:id", (req, res) => {
-  // code here
+router.put("/:id", (req, res) => {
+  console.log(req.params);
+  let queryText = `
+  UPDATE "gallery" set "likes" = +1
+  WHERE "id" = $1;
+  `;
+  pool
+    .query(queryText, [true, req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;
