@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./GalleryItems.css";
 import axios from "axios";
 
-function GalleryItems({ gallery }) {
+function GalleryItems({ gallery, loadGallery }) {
   const [visibility, setVisibility] = useState([]);
 
   const toggleDescription = (id) => {
@@ -13,9 +13,15 @@ function GalleryItems({ gallery }) {
   };
 
   const handleLike = (id) => {
-    axios.post(`/api/gallery/${id}`).then((response) => {
-      console.log();
-    });
+    axios
+      .put(`/api/gallery/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        loadGallery();
+      })
+      .catch((error) => {
+        console.log("Error /UPDATE", error);
+      });
   };
 
   return (
@@ -30,12 +36,12 @@ function GalleryItems({ gallery }) {
             {visibility[galleryData.id] ? (
               <span>{galleryData.description}</span>
             ) : (
-              <img src={galleryData.url} />
+              <img src={galleryData.url} alt={galleryData.description} />
             )}
             <div className="btn-count">
-              <button onClick={() => handleLike(gallery.likes)}>
+              <button onClick={() => handleLike(galleryData.id)}>
                 <span> {galleryData.likes}</span>
-                Love it
+                Like
               </button>
             </div>
           </div>

@@ -51,6 +51,7 @@
   padding: 5px;
   text-align: center;
   margin-left: 70px;
+  cursor: pointer;
 }
 
 /* .gallery-item .gallery-img:first-of-type img {

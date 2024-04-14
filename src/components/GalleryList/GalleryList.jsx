@@ -92,7 +92,7 @@ const GalleryList = () => {
 
   return (
     <div data-testid="galleryList">
-      <GalleryItems gallery={gallery} />
+      <GalleryItems gallery={gallery} loadGallery={loadGallery} />
     </div>
   );
 };

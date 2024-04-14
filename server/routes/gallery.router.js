@@ -20,11 +20,11 @@ router.get("/", (request, response) => {
 router.put("/:id", (req, res) => {
   console.log(req.params);
   let queryText = `
-  UPDATE "gallery" set "likes" = +1
+  UPDATE "gallery" set "likes" = "likes" +1
   WHERE "id" = $1;
   `;
   pool
-    .query(queryText, [true, req.params.id])
+    .query(queryText, [req.params.id])
     .then(() => {
       res.sendStatus(200);
     })
